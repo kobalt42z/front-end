@@ -1,6 +1,18 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import './register.css'
+
+// ! TODO: add regex to register 
+// ! TODO: fix prevent default and hndle submit
+
 const Register = () => {
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        console.log(data);
+    };
+
+    // console.log(watch("FirstName")); to watch the field in live mode
+
     return (
         <div className ="container mx-auto">
             <div className ="flex justify-center px-6 my-12">
@@ -8,9 +20,8 @@ const Register = () => {
                 <div className ="w-full xl:w-3/4 lg:w-11/12 flex">
 
                     <div
-                        className ="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg registerBg"
-                        
-                    ></div>
+                        className ="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg registerBg"> 
+                    </div>
 
                     <div className ="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
                         <h3 className ="pt-4 text-2xl text-center">Create an Account!</h3>
@@ -25,6 +36,8 @@ const Register = () => {
                                         id="firstName"
                                         type="text"
                                         placeholder="First Name"
+                                        {... register("FirstName",
+                                        {required: true,minLength:2,maxLength:30, pattern: /^[A-Za-z]+$/i})}
                                     />
                                 </div>
                                 <div className ="md:ml-2">
@@ -36,6 +49,8 @@ const Register = () => {
                                         id="lastName"
                                         type="text"
                                         placeholder="Last Name"
+                                        {...register("Last Name",{required: true,minLength:2,maxLength:30, pattern: /^[A-Za-z]+$/i})}
+                                        
                                     />
                                 </div>
                             </div>
@@ -48,6 +63,8 @@ const Register = () => {
                                     id="email"
                                     type="email"
                                     placeholder="Email"
+                                    {... register("Email",{required: true,max:100})}
+                                    // ! mail regex as pattern
                                 />
                             </div>
                             <div className ="mb-4 md:flex md:justify-between">
@@ -60,6 +77,7 @@ const Register = () => {
                                         id="password"
                                         type="password"
                                         placeholder="******************"
+                                        {...register("password",{required:true ,min:8,max:16})}
                                     />
                                     <p className ="text-xs italic text-red-500">Please choose a password.</p>
                                 </div>
@@ -78,7 +96,7 @@ const Register = () => {
                             <div className ="mb-6 text-center">
                                 <button
                                     className ="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                                    type="button"
+                                    type="submit"
                                 >
                                     Register Account
                                 </button>
