@@ -21,7 +21,7 @@ const Register = () => {
             email: data.Email,
             password: data.Password,
         }
-    
+    // ? to check how to throw up sucsess message
         let resp = apiPost(REGISTER_URL, body)
         // if(resp.object.status === 201)console.log('yayyyya');
         console.log(resp||"faild");
