@@ -12,10 +12,10 @@ const Header = () => {
           <div className="capitalize flex items-center  font-semibold justify-evenly w-[50%]
           text-lg text-center 
           ">
-            <h4>Documentation</h4>
-            <h4>About us</h4>
-            <h4>Prices</h4>
-            <h4>Contact us</h4>
+            <a href="https://documenter.getpostman.com/view/23058664/2s8YzUw1Yo#intro">Documentation</a>
+            <Link to="/aboutUs">About us</Link>
+            <Link to="/price">Prices</Link>
+            <Link to="/contactUs">Contact us</Link>
 
             <Link to={"/login"} className=" capitalize  shadow  hover:text-white focus:shadow-outline focus:outline-none text-gray-400 text-lg  font-bold py-3 px-3 rounded">Sign In</Link>
            
