@@ -9,16 +9,25 @@ import './register.css'
 // ! TODO: fix prevent default and hndle submit
 
 const Register = () => {
-    const {User} =React.useContext(GlobalContext)
-    const [user,setUser]= User
+    const { User } = React.useContext(GlobalContext)
+    const [user, setUser] = User
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data);
+        let body = {
+            userName: data.UserName,
+            firstName: data.FirstName,
+            lastName: data.LastName,
+            email: data.Email,
+            password: data.Password,
+        }
+    
+        let resp = apiPost(REGISTER_URL, body)
+        // if(resp.object.status === 201)console.log('yayyyya');
+        console.log(resp||"faild");
         
-        setUser(apiPost(REGISTER_URL, data));
-        console.log(user);
     };
-   
+
 
     const [activ, setActiv] = useState(false);
     return (
@@ -57,6 +66,7 @@ const Register = () => {
                                                 }
                                             })}
                                     />
+                                    {errors.FirstName && <p className="text-xs italic text-red-500">{errors.FirstName.message}</p>}
                                 </div>
                                 <div className="md:ml-2">
                                     <label className="block mb-2 text-sm font-bold text-gray-700" >
@@ -80,7 +90,11 @@ const Register = () => {
                                                 }
                                             })}
                                     />
+                                    {errors.LastName && <p className="text-xs italic text-red-500">{errors.LastName.message}</p>}
                                 </div>
+                            </div>
+                            <div className="mb-4 md:flex md:justify-between">
+
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-bold text-gray-700" >
@@ -104,7 +118,32 @@ const Register = () => {
                                     })}
 
                                 />
+                                {errors.Email && <p className="text-xs italic text-red-500">{errors.Email.message}</p>}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block mb-2 text-sm font-bold text-gray-700" >
+                                    UserName
+                                </label>
+                                <input
+                                    className={`w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline
+                                    ${errors.UserName ? "border-red-500" : "border-gray-200"}
+                                    `}
+                                    id="UserName"
+                                    type="username"
+                                    placeholder="UserName"
+                                    {...register("UserName", {
+                                        required: "must provide a valid Username",
+                                        minLength: {
+                                            value: 5, message: "Must be at least 5 characters"
+                                        },
+                                        maxLength: {
+                                            value: 30, message: "Must be at most 30 characters"
+                                        },
 
+                                    })}
+
+                                />
+                                {errors.UserName && <p className="text-xs italic text-red-500">{errors.UserName.message}</p>}
                             </div>
                             <div className="mb-4 md:flex md:justify-between">
                                 <div className="mb-4 md:mr-2 md:mb-0">

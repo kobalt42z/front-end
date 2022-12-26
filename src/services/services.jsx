@@ -8,7 +8,7 @@ export const apiGet = async (_url) => {
         let resp = await axios.get(_url, {
             headers: {
                 "x-api-key": localStorage[TOKEN_KEY],
-                'content-type': "application/json"
+                'Content-Type': "application/json"
             }
         })
         return resp;
@@ -24,7 +24,7 @@ export const apiPost = async (_url, _body = {}) => {
             data: JSON.stringify(_body),
             headers: {
                 "x-api-key": localStorage[TOKEN_KEY],
-                'content-type': "application/json",
+                'Content-Type': "application/json",
                 "Access-Control-Allow-Origin": "*",
 
                 "Access-Control-Allow-Methods": "POST, PUT, PATCH, GET, DELETE, OPTIONS",
@@ -34,7 +34,7 @@ export const apiPost = async (_url, _body = {}) => {
         })
         return resp;
     } catch (err) {
-        throw err;
+        throw err.response.data ||err;
     }
 }
 export const apiPut = async (_url, _body = {}) => {
@@ -45,7 +45,7 @@ export const apiPut = async (_url, _body = {}) => {
             data: JSON.stringify(_body),
             headers: {
                 "x-api-key": localStorage[TOKEN_KEY],
-                'content-type': "application/json"
+                'Content-Type': "application/json"
             }
         })
         return resp;
@@ -61,7 +61,7 @@ export const apiDelete = async (_url, _body = {}) => {
             data: JSON.stringify(_body),
             headers: {
                 "x-api-key": localStorage[TOKEN_KEY],
-                'content-type': "application/json"
+                'Content-Type': "application/json"
             }
         })
         return resp;
