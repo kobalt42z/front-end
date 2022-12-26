@@ -11,7 +11,7 @@ import Protected from './protected'
 
 const Browser = () => {
     const [registred, setRegistred] = useState(false)
-
+    
     return (
         <BrowserRouter>
 

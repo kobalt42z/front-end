@@ -7,7 +7,10 @@ import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import{githubGist} from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { vs } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+
+import {GlobalContext } from '../../contexts/context'
 const Landing = () => {
+    
     return (
         <>
             <div className='landingBG h-[100vh] w-[100%] text-white' >
@@ -20,7 +23,7 @@ const Landing = () => {
                             <h5 className='text-lg text-gray-400'>get started in no time, register and start browsing </h5>
                             <Link to={"/register"} className=" capitalize  shadow bg-cyan-600 hover:bg-cyan-800 focus:shadow-outline focus:outline-none text-[#111111] text-lg font-bold py-3 px-7 rounded 
                         w-[35%] mt-5
-                        ">Get started <i class="fa-solid fa-arrow-right"></i></Link>
+                        ">Get started <i className="fa-solid fa-arrow-right"></i></Link>
                         </div>
 
                     </div>
