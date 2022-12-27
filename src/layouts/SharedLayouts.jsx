@@ -11,6 +11,7 @@ const SharedLayouts = ({registred}) => {
    {registred? <NavBar/>:<Header/> }
        
         <Outlet/>
+        <h1>footer</h1>
     </>
   )
 }

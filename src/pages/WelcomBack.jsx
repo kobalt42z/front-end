@@ -1,83 +1,138 @@
 import React from 'react'
-import './register.css'
+import Register from './register'
+import { useForm } from 'react-hook-form'
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { apiPost } from '../services/services';
+import { LOGIN_URL, TOKEN_KEY } from '../constant/constant';
 const WelcomBack = () => {
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    function onSubmit(data) {
+        console.log(data)
+        let resp = apiPost(LOGIN_URL, data).then(
+            resp => {
+                
+                localStorage.setItem(TOKEN_KEY, resp.token)
+            }
+    
+        )
+     return navigate('/home/videoGame')
+ 
+    };
     return (
 
-    
-            <div class="container mx-auto">
-                <div class="flex justify-center px-6 my-12">
-                    
-                    <div class="w-full xl:w-3/4 lg:w-11/12 flex">
-              
-                        <div
-                            class="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg wbBg"
-                        
-                        ></div>
-               
-                        <div class="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
-                            <h3 class="pt-4 text-2xl text-center">Welcome Back!</h3>
-                            <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                                <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-bold text-gray-700" >
-                                        Username
-                                    </label>
-                                    <input
-                                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        id="username"
-                                        type="text"
-                                        placeholder="Username"
-                                    />
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block mb-2 text-sm font-bold text-gray-700" >
-                                        Password
-                                    </label>
-                                    <input
-                                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                        id="password"
-                                        type="password"
-                                        placeholder="******************"
-                                    />
-                                    <p class="text-xs italic text-red-500">Please choose a password.</p>
-                                </div>
-                                <div class="mb-4">
-                                    <input class="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
-                                    <label class="text-sm" >
-                                        Remember Me
-                                    </label>
-                                </div>
-                                <div class="mb-6 text-center">
-                                    <button
-                                        class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                                        type="button"
-                                    >
-                                        Sign In
-                                    </button>
-                                </div>
-                                <hr class="mb-6 border-t" />
-                                <div class="text-center">
+
+        <div className="container mx-auto">
+            <div className="flex justify-center px-6 my-12">
+
+                <div className="w-full xl:w-3/4 lg:w-11/12 flex">
+
+                    <div
+                        className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg wbBg"
+
+                    ></div>
+
+                    <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+                        <h3 className="pt-4 text-2xl text-center">Welcome Back!</h3>
+                        <form onSubmit={handleSubmit(onSubmit)} className="px-8 pt-6 pb-8 mb-4 bg-white rounded" >
+                            <div className="mb-4">
+                                <label className="block mb-2 text-sm font-bold text-gray-700" >
+                                    Username/Email
+                                </label>
+                                <input
+                                    className={`w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline
+                                        ${errors.account && 'border-red-500'}`}
+                                    id="username"
+                                    type="text"
+                                    placeholder="Username"
+
+                                    {...register("account", {
+                                        required: {
+                                            value: true,
+                                            message: "Please enter"
+                                        },
+                                        minLength: {
+                                            value: 3,
+                                            message: "Please enter"
+                                        },
+                                        maxLength: {
+                                            value: 15,
+                                            message: "Please enter"
+                                        },
+
+                                    })}
+
+                                />
+                                {errors.account && <span className="text-xs italic text-red-500">{errors.account.message}</span>}
+                            </div>
+                            <div className="mb-4">
+                                <label className="block mb-2 text-sm font-bold text-gray-700" >
+                                    Password
+                                </label>
+                                <input
+                                    className={`w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline ${errors.password && 'border-red-500'
+                                        }`}
+                                    id="password"
+                                    type="password"
+                                    placeholder="******************"
+                                    {...register("password", {
+                                        required: {
+                                            value: true,
+                                            message: "Please provid password"
+                                        },
+                                        minLength: {
+                                            value: 8,
+                                            message: "password must be at least 8 characters"
+                                        },
+                                        maxLength: {
+                                            value: 16,
+                                            message: "password can be at most 16 characters"
+                                        },
+                                    })}
+                                />
+
+                                {errors.password && <span className="text-xs italic text-red-500">{errors.password.message}</span>}
+
+                            </div>
+                            {/* <div className="mb-4">
+                                <input className="mr-2 leading-tight" type="checkbox" id="checkbox_id" />
+                                <label className="text-sm" >
+                                    Remember Me
+                                </label>
+                            </div> */}
+                            <div className="mb-6 text-center">
+                                <button
+                                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                    type="submit"
+                                >
+                                    Sign In
+                                </button>
+                            </div>
+                            <hr className="mb-6 border-t" />
+                            <div className="text-center">
+                                <Link
+                                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                                    to={"/register"}
+                                >
+                                    Create an Account!
+                                </Link>
+                            </div>
+                            {/* //! forgot password 
+                                <div className="text-center">
                                     <a
-                                        class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                        href="./register.html"
-                                    >
-                                        Create an Account!
-                                    </a>
-                                </div>
-                                <div class="text-center">
-                                    <a
-                                        class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                                        className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                                         href="./forgot-password.html"
                                     >
                                         Forgot Password?
                                     </a>
-                                </div>
-                            </form>
-                        </div>
+                                </div> */}
+                        </form>
                     </div>
                 </div>
             </div>
-      
-  )
+        </div>
+
+    )
 }
 
 export default WelcomBack

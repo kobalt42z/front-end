@@ -32,9 +32,10 @@ export const apiPost = async (_url, _body = {}) => {
                 "Access-Control-Allow-Headers": "*"
             }
         })
-        return resp;
+         
+        return await resp.data
     } catch (err) {
-        throw err.response.data ||err;
+        throw err;
     }
 }
 export const apiPut = async (_url, _body = {}) => {

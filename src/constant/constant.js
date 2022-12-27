@@ -3,3 +3,7 @@ export const BASE_URL = 'http://localhost:3000';
 export const LOGIN_URL = BASE_URL + '/users/login';
 export const REGISTER_URL = BASE_URL + '/users/signUp';
 
+
+
+// * ______ADMIN_SECTION_______
+export const ADD_GAME = BASE_URL + '/games/addGame';

@@ -1,9 +1,12 @@
+import { Alert, Button, Modal } from 'flowbite-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { LOGIN_URL, REGISTER_URL } from '../constant/constant';
 import { GlobalContext } from '../contexts/context';
 import { apiPost } from '../services/services';
 import './register.css'
+import Check from './check.svg'
 
 // ! TODO: add regex to register 
 // ! TODO: fix prevent default and hndle submit
@@ -11,7 +14,12 @@ import './register.css'
 const Register = () => {
     const { User } = React.useContext(GlobalContext)
     const [user, setUser] = User
+    const [show, setShow] = useState(false)
+    const navigate = useNavigate()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const onClick = () => {
+        navigate('/login')
+    }
     const onSubmit = data => {
         console.log(data);
         let body = {
@@ -21,19 +29,51 @@ const Register = () => {
             email: data.Email,
             password: data.Password,
         }
-    // ? to check how to throw up sucsess message
+        // ? to check how to throw up sucsess message
         let resp = apiPost(REGISTER_URL, body)
-        // if(resp.object.status === 201)console.log('yayyyya');
-        console.log(resp||"faild");
-        
+       
+        console.log(resp || "faild");
+        setActiv(true)
+
     };
 
+    
 
     const [activ, setActiv] = useState(false);
     return (
         <div className="container mx-auto">
-            <div className="flex justify-center px-6 my-12">
 
+            <div className="flex justify-center px-6 my-12">
+                <Modal
+                    show={activ}
+                    size="md"
+                    popup={true}
+                    onClose={() => setActiv(false)}
+                >
+                    <Modal.Header />
+                    <Modal.Body>
+                        <div className="text-center">
+                            <img src={Check} alt='check' className="mx-auto  iconc mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400 capitalize">
+                                the account have been created succefully
+                            </h3>
+                            <div className="flex justify-center gap-4">
+                                <Button
+                                    color="success"
+                                    onClick={onClick}
+                                >
+                                    LogIn
+                                </Button>
+                                <Button
+                                    color="gray"
+                                    onClick={() => setActiv(false)}
+                                >
+                                    Ok
+                                </Button>
+                            </div>
+                        </div>
+                    </Modal.Body>
+                </Modal>
                 <div className="w-full xl:w-3/4 lg:w-11/12 flex">
 
                     <div
@@ -73,7 +113,7 @@ const Register = () => {
                                         Last Name
                                     </label>
                                     <input
-                                        className={`w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline
+                                        className={`w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline capitalize
                                         ${errors.LastName && "border-red-500"}
                                         `}
                                         id="lastName"
@@ -81,14 +121,23 @@ const Register = () => {
                                         placeholder="Last Name"
                                         {...register("LastName",
                                             {
-                                                required: "Must provide first name ", minLength: {
-                                                    value: 2, message: "Must be at least 2 characters"
-                                                }, maxLength: {
-                                                    value: 30, message: "Must be at most 30 characters"
-                                                }, pattern: {
-                                                    value: /^[A-Za-z]+$/i, message: "Must be only letters"
+                                                required: {
+                                                    value: true,
+                                                    message: "Must provide last name"
+                                                }, minLength: {
+                                                    value: 2,
+                                                    message: "Must be at least 2 characters"
+                                                },
+                                                maxLength: {
+                                                    value: 15,
+                                                    message: "Must be at most 15 characters"
+                                                },
+                                                pattern: {
+                                                    value: /^[A-Za-z]+$/i,
+                                                    message: "Must be only letters"
                                                 }
                                             })}
+
                                     />
                                     {errors.LastName && <p className="text-xs italic text-red-500">{errors.LastName.message}</p>}
                                 </div>
@@ -196,11 +245,14 @@ const Register = () => {
                                 <button
                                     className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                                     type="submit"
+
                                 >
                                     Register Account
+
                                 </button>
                             </div>
                             <hr className="mb-6 border-t" />
+                            {/* //! forgot password 
                             <div className="text-center">
                                 <a
                                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
@@ -208,14 +260,14 @@ const Register = () => {
                                 >
                                     Forgot Password?
                                 </a>
-                            </div>
+                            </div> */}
                             <div className="text-center">
-                                <a
+                                <Link
                                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                    href="./index.html"
+                                    to="/login"
                                 >
                                     Already have an account? Login!
-                                </a>
+                                </Link>
                             </div>
                         </form>
                     </div>
