@@ -37,7 +37,7 @@ const VideoGames = () => {
 
 
         <Modal.Body>
-          <h1 className="text-2xl font-bold h-[50px]">Add Game</h1>
+          <h1 className="text-2xl font-bold h-[50px] dark:text-white">Add Game</h1>
           <hr />
           <AddGame />
         </Modal.Body>

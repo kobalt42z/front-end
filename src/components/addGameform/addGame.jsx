@@ -12,16 +12,16 @@ const AddGame = () => {
 
     console.log(watch("example"));
   return (
-    <div className="container flex justify-center items-center pt-10 capitalize">
-      <div className="bg-white rounded-md w-[100%]">
+    <div className="container flex justify-center items-center pt-10 capitalize ">
+      <div className=" dark:bg-gray-900 rounded-md w-[100%]">
         <div className="flex items-center justify-center ">
 
           <div className="mx-auto w-full max-w-[650px] ">
-            <form onSubmit={handleSubmit(onSubmit) } className='grid grid-cols-2 grid-flow-row gap-x-5'>
+            <form onSubmit={handleSubmit(onSubmit) } className='grid grid-cols-2 grid-flow-row gap-x-5  dark:bg-gray-700 dark:border-gray-700  dark:text-white'>
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   Game Name
                 </label>
@@ -31,7 +31,7 @@ const AddGame = () => {
                   id="naGameNameme"
                   placeholder="GameName"
                  className={`
-                  w-full rounded-md border ${errors.GameName? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.GameName? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("GameName", { 
@@ -56,7 +56,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   Game Link
                 </label>
@@ -66,7 +66,7 @@ const AddGame = () => {
                   id="GameLink"
                   placeholder="Game Link"
                  className={`
-                  w-full rounded-md border ${errors.GameLink ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.GameLink ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("GameLink", {
@@ -90,7 +90,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   Realese Year
                 </label>
@@ -100,7 +100,7 @@ const AddGame = () => {
                   id="realesYear"
                   placeholder="ex: 2021"
                  className={`
-                  w-full rounded-md border ${errors.realesYear ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.realesYear ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("realesYear", {
@@ -129,7 +129,7 @@ const AddGame = () => {
 
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   Gener
                 </label>
@@ -139,7 +139,7 @@ const AddGame = () => {
                   id="Gener"
                   placeholder="Gener"
                  className={`
-                  w-full rounded-md border ${errors.Gener ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.Gener ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("Gener", {
@@ -167,7 +167,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   Devlopers Name
                 </label>
@@ -177,7 +177,7 @@ const AddGame = () => {
                   id="DevlopersName"
                   placeholder="ex: Savage Entertainment"
                   className={`
-                  w-full rounded-md border ${errors.DevlopersName ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.DevlopersName ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   {...register("DevlopersName", { required: {
                     value: true,
@@ -201,7 +201,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   devloper Link
                 </label>
@@ -211,7 +211,7 @@ const AddGame = () => {
                   id="devloperLink"
                   placeholder="https://en.wikipedia.org/wiki/EA_Games"
                  className={`
-                  w-full rounded-md border ${errors.devloperLink ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.devloperLink ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
 
@@ -240,7 +240,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   publisher Name
                 </label>
@@ -250,7 +250,7 @@ const AddGame = () => {
                   id="publisherName"
                   placeholder="ex: EA Game"
                  className={`
-                  w-full rounded-md border ${errors.publisherName ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.publisherName ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("publisherName", {
@@ -276,7 +276,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   publisher link
                 </label>
@@ -286,7 +286,7 @@ const AddGame = () => {
                   id="publisherLink"
                   placeholder="ex: https://en.wikipedia.org/wiki/EA_Games"
                  className={`
-                  w-full rounded-md border ${errors.publisherLink ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.publisherLink ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("publisherLink", {
@@ -315,7 +315,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   platform
                 </label>
@@ -325,7 +325,7 @@ const AddGame = () => {
                   id="platform"
                   placeholder="XBOX"
                  className={`
-                  w-full rounded-md border ${errors.platform ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.platform ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
 
@@ -351,7 +351,7 @@ const AddGame = () => {
               <div className="mb-5">
                 <label
 
-                  className="mb-3 block text-base font-medium text-[#07074D]"
+                  className="mb-3 block text-base font-medium "
                 >
                   platform link
                 </label>
@@ -361,7 +361,7 @@ const AddGame = () => {
                   id="platformLink"
                   placeholder="https://en.wikipedia.org/wiki/Xbox_(console)"
                  className={`
-                  w-full rounded-md border ${errors.platformLink ? "border-red-500" : "border-[#e0e0e0]"}  bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none  focus:shadow-md focus:border-[#6A64F1]
+                  w-full rounded-md border ${errors.platformLink ? "border-red-500" : "border-[#e0e0e0]"}   dark:bg-gray-900 py-3 px-6 text-base font-medium  outline-none  focus:shadow-md focus:border-[#6A64F1]
                   `}
                   
                   {...register("platformLink", {
