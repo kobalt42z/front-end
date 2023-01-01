@@ -13,6 +13,7 @@ export const apiGet = async (_url) => {
         })
         return resp;
     } catch (err) {
+        
         throw err;
     }
 }
@@ -35,7 +36,7 @@ export const apiPost = async (_url, _body = {}) => {
          
         return await resp.data
     } catch (err) {
-        throw err;
+        throw err.response.status;    // !thorw err send data from register:1 and not from catch 
     }
 }
 export const apiPut = async (_url, _body = {}) => {

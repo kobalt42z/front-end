@@ -1,30 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Register from './register'
 import { useForm } from 'react-hook-form'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { apiPost } from '../services/services';
-import { LOGIN_URL, TOKEN_KEY } from '../constant/constant';
+import { LOGIN_URL, REGISTER_URL, TOKEN_KEY } from '../constant/constant';
+import { Alert } from 'flowbite-react';
+import { MustSignIn } from '../components/Alerts/mustSignIn';
+import { GlobalContext } from '../contexts/context';
+import { WrongCred } from '../components/loginModal/WrongCred';
+
 const WelcomBack = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    function onSubmit(data) {
+    const location = useLocation();
+    const { User } = React.useContext(GlobalContext)
+    const [user, setUser] = User
+    const [Wrong, setWrong] = useState(false);
+
+    const closeModal = () => {
+        setWrong(false)
+    }
+    async function onSubmit(data) {
         console.log(data)
-        let resp = apiPost(LOGIN_URL, data).then(
-            resp => {
-                
-                localStorage.setItem(TOKEN_KEY, resp.token)
+        try {
+            let resp = await apiPost(LOGIN_URL, data);
+            localStorage.setItem(TOKEN_KEY, resp.token);
+            setUser(resp.user)
+
+            navigate('/home');
+        } catch (err) {
+            if (err === 401) {
+                console.log("wrong credentials");
+                setWrong(true)
             }
-    
-        )
-     return navigate('/home/videoGame')
- 
+            console.log(err);
+        }
+
+
     };
+
+    useEffect(() => {
+
+
+    }, []);
     return (
 
 
-        <div className="container mx-auto">
-            <div className="flex justify-center px-6 my-12">
+        <div className="container mx-auto ">
+            {Wrong && <WrongCred closeModal={closeModal} />}
+            {location.state?.authFaild && <MustSignIn />}
 
+            <div className="flex justify-center px-6 my-12">
                 <div className="w-full xl:w-3/4 lg:w-11/12 flex">
 
                     <div
@@ -117,6 +143,8 @@ const WelcomBack = () => {
                                     Create an Account!
                                 </Link>
                             </div>
+
+
                             {/* //! forgot password 
                                 <div className="text-center">
                                     <a

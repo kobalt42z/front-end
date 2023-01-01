@@ -8,10 +8,9 @@ const SharedLayouts = ({registred}) => {
   
   return (
     <>
-   {registred? <NavBar/>:<Header/> }
-       
-        <Outlet/>
-        <h1>footer</h1>
+  <NavBar/> 
+  <Outlet/>
+  <h1>footer</h1>
     </>
   )
 }

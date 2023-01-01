@@ -2,11 +2,15 @@ import { Alert, Button, Modal } from 'flowbite-react';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { LOGIN_URL, REGISTER_URL } from '../constant/constant';
+import { LOGIN_URL, REGISTER_URL, TOKEN_KEY } from '../constant/constant';
 import { GlobalContext } from '../contexts/context';
 import { apiPost } from '../services/services';
 import './register.css'
-import Check from './check.svg'
+
+import SuccessModal from '../components/registerModal/SuccessModal';
+import FailModal from '../components/registerModal/FailModal';
+import { MustSignIn } from '../components/Alerts/mustSignIn';
+import AlredyExist from '../components/registerModal/alredyExist';
 
 // ! TODO: add regex to register 
 // ! TODO: fix prevent default and hndle submit
@@ -14,13 +18,17 @@ import Check from './check.svg'
 const Register = () => {
     const { User } = React.useContext(GlobalContext)
     const [user, setUser] = User
-    const [show, setShow] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [faild, setFaild] = useState(false)
+    const [alredy, setAlredy] = useState(false)
+    
     const navigate = useNavigate()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onClick = () => {
-        navigate('/login')
+    const closeModal = () => {
+        setAlredy(false)
+        setFaild(false)
     }
-    const onSubmit = data => {
+    const onSubmit =async data => {
         console.log(data);
         let body = {
             userName: data.UserName,
@@ -30,50 +38,50 @@ const Register = () => {
             password: data.Password,
         }
         // ? to check how to throw up sucsess message
-        let resp = apiPost(REGISTER_URL, body)
-       
-        console.log(resp || "faild");
-        setActiv(true)
+        // try {
+        //     let resp = apiPost(REGISTER_URL, body)
+        //     .then(_resp => {
+        //         console.log(_resp);
+        //     })
+        // } catch (err) {
+        //     if (err === 409) {
+        //         console.log("aya");
+        //     }
+        //     console.log(err);
+        // }
+        
+        try {
+            let resp = await apiPost(REGISTER_URL, body);
+            console.log(resp);
+            setSuccess(true)
+          } catch (err) {
+            if (err === 409) {
+              console.log("alredy exist ");
+              setAlredy(true)
+              
+            }
+            else{
+                setFaild(true)
+            }
+           
+          }
+
+        // console.log(resp || "faild");
+
 
     };
 
-    
 
-    const [activ, setActiv] = useState(false);
+
+
     return (
         <div className="container mx-auto">
 
+            
             <div className="flex justify-center px-6 my-12">
-                <Modal
-                    show={activ}
-                    size="md"
-                    popup={true}
-                    onClose={() => setActiv(false)}
-                >
-                    <Modal.Header />
-                    <Modal.Body>
-                        <div className="text-center">
-                            <img src={Check} alt='check' className="mx-auto  iconc mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400 capitalize">
-                                the account have been created succefully
-                            </h3>
-                            <div className="flex justify-center gap-4">
-                                <Button
-                                    color="success"
-                                    onClick={onClick}
-                                >
-                                    LogIn
-                                </Button>
-                                <Button
-                                    color="gray"
-                                    onClick={() => setActiv(false)}
-                                >
-                                    Ok
-                                </Button>
-                            </div>
-                        </div>
-                    </Modal.Body>
-                </Modal>
+                {alredy && <AlredyExist  closeModal={closeModal} />}
+                {faild && <FailModal closeModal={closeModal} />}
+                {success && <SuccessModal />}
                 <div className="w-full xl:w-3/4 lg:w-11/12 flex">
 
                     <div
@@ -250,16 +258,17 @@ const Register = () => {
                                     Register Account
 
                                 </button>
+
                             </div>
                             <hr className="mb-6 border-t" />
-                            {/* //! forgot password 
-                            <div className="text-center">
-                                <a
+                            //! forgot password
+                            {/* <div className="text-center">
+                            <Link
                                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                    href="#"
+                                    to="/login"
                                 >
-                                    Forgot Password?
-                                </a>
+                                   forgot password ?
+                                </Link>
                             </div> */}
                             <div className="text-center">
                                 <Link

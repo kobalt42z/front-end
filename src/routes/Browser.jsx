@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Link, Navigate, Route, Router, Routes, useLocation } from 'react-router-dom'
+import { GeneralAuth } from '../auth/generalAuth'
 import Home from '../layouts/home/home'
 import Landing from '../layouts/home/landing'
 import VideoGames from '../layouts/home/videoGames'
@@ -27,13 +28,8 @@ const Browser = () => {
                 <Route path="/login" element={<WelcomBack />} />
 
            
-                <Route path="/home" element={<SharedLayouts registred={true} />}>
-
-                    {/* jump to empty page wih shared layout TOFIX */}
-                    <Route index element={<Home/>} />
-                    <Route path="/home/register" element={<Register/>} />
-                    <Route path="/home/videoGame" element={<VideoGames/>} />
-
+                <Route path="/home" element={<GeneralAuth><SharedLayouts/></GeneralAuth>}>
+                    <Route index element={<VideoGames/>} />
                 </Route>
 
 
