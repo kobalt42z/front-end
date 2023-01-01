@@ -1,5 +1,9 @@
+import { Footer } from 'flowbite-react'
 import React, { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import HomeFooter from '../components/footer/HomeFooter'
+
+
 import Header from '../components/header/Header'
 import NavBar from '../components/Navbar/NavBar'
 
@@ -9,8 +13,11 @@ const SharedLayouts = ({registred}) => {
   return (
     <>
   <NavBar/> 
-  <Outlet/>
-  <h1>footer</h1>
+<div className="h-[90vh]">
+<Outlet/>
+</div>
+  
+  <HomeFooter/>
     </>
   )
 }
