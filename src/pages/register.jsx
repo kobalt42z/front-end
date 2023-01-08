@@ -21,14 +21,14 @@ const Register = () => {
     const [success, setSuccess] = useState(false)
     const [faild, setFaild] = useState(false)
     const [alredy, setAlredy] = useState(false)
-    
+
     const navigate = useNavigate()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const closeModal = () => {
         setAlredy(false)
         setFaild(false)
     }
-    const onSubmit =async data => {
+    const onSubmit = async data => {
         console.log(data);
         let body = {
             userName: data.UserName,
@@ -49,22 +49,22 @@ const Register = () => {
         //     }
         //     console.log(err);
         // }
-        
+
         try {
             let resp = await apiPost(REGISTER_URL, body);
             console.log(resp);
             setSuccess(true)
-          } catch (err) {
+        } catch (err) {
             if (err === 409) {
-              console.log("alredy exist ");
-              setAlredy(true)
-              
+                console.log("alredy exist ");
+                setAlredy(true)
+
             }
-            else{
+            else {
                 setFaild(true)
             }
-           
-          }
+
+        }
 
         // console.log(resp || "faild");
 
@@ -77,9 +77,9 @@ const Register = () => {
     return (
         <div className="container mx-auto">
 
-            
+
             <div className="flex justify-center px-6 my-12">
-                {alredy && <AlredyExist  closeModal={closeModal} />}
+                {alredy && <AlredyExist closeModal={closeModal} />}
                 {faild && <FailModal closeModal={closeModal} />}
                 {success && <SuccessModal />}
                 <div className="w-full xl:w-3/4 lg:w-11/12 flex">
@@ -261,21 +261,30 @@ const Register = () => {
 
                             </div>
                             <hr className="mb-6 border-t" />
-                            //! forgot password
-                            {/* <div className="text-center">
-                            <Link
-                                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                                    to="/login"
-                                >
-                                   forgot password ?
-                                </Link>
-                            </div> */}
                             <div className="text-center">
                                 <Link
                                     className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
                                     to="/login"
                                 >
                                     Already have an account? Login!
+                                </Link>
+                            </div>
+
+                            <div className="text-center">
+                                <Link
+                                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                                    to="/forgot"
+                                >
+                                    forgot password ?
+                                </Link>
+                            </div>
+
+                            <div className="text-center">
+                                <Link
+                                    className="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                                    to="/landing"
+                                >
+                                    Go Back
                                 </Link>
                             </div>
                         </form>

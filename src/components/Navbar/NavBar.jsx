@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import { GlobalContext } from '../../contexts/context'
+import { TOKEN_KEY, USER_KEY } from '../../constant/constant'
 const navigation = [
   { name: 'Browse Games', Link: '/home/videoGame', current: true },
   { name: 'Team', href: '#', current: false },
@@ -21,14 +22,14 @@ export default function NavBar() {
   const [user, setUser] = User
 
   const  logout = () => {
-    localStorage.removeItem('token')
-    setUser(null)
-    
+    localStorage.removeItem(TOKEN_KEY)
+    localStorage.removeItem(USER_KEY)
   }
   
   useEffect(() => {
- console.log(user);
-  }, []);
+    console.log(user);
+  }, [user])
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -89,13 +90,13 @@ export default function NavBar() {
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
+                    <Menu.Button className="flex items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <img
                         className="h-8 w-8 rounded-full"
                         src={user.profilePicture}
                         alt="profilePicture"
                       />
+                      <div className="pl-3 dark:text-white font-bold capitalize">{user.firstName+' '+user.lastName}</div>
                     </Menu.Button>
                   </div>
                   <Transition

@@ -9,6 +9,7 @@ import ForOfor from '../pages/404'
 import Register from '../pages/register'
 import WelcomBack from '../pages/WelcomBack'
 import Protected from './protected'
+import { ForgotPwd } from '../pages/ForgotPwd'
 
 
 const Browser = () => {
@@ -23,9 +24,11 @@ const Browser = () => {
 
                 <Route path='/landing' element={registred ? <Navigate to="/home" /> : <Landing />} />
 
-                <Route path="/register" element={<Register />} />
+                <Route path="/register" element={registred ? <Navigate to="/home" /> : <Register />} />
 
-                <Route path="/login" element={<WelcomBack />} />
+                <Route path="/login" element={registred ? <Navigate to="/home" /> : <WelcomBack />} />
+
+                <Route path="/forgot" element={<ForgotPwd/>} />
 
            
                 <Route path="/home" element={<GeneralAuth><SharedLayouts/></GeneralAuth>}>

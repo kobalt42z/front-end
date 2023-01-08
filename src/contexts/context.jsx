@@ -1,9 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { USER_KEY } from "../constant/constant";
 
 export const GlobalContext = createContext();
 
 export default ({ children }) => {
-    const [User, setUser] = useState("yo")
+
+    const [User, setUser] = useState("empty")
     
 
 
@@ -11,6 +13,18 @@ export default ({ children }) => {
         User:[User, setUser],
        
     }
+
+
+    // onload check if user is already logged in 
+    // if true load user data from local storage
+    useEffect(() => {
+        if (localStorage[USER_KEY] !== undefined) {
+            console.log(JSON.parse(localStorage[USER_KEY]));
+            setUser(JSON.parse(localStorage[USER_KEY]))
+            
+        }
+        
+    }, [])
 
     return <GlobalContext.Provider value={GlobalStorage}>{children}</GlobalContext.Provider>
 }
