@@ -88,15 +88,15 @@ const WelcomBack = () => {
                                         {...register("account", {
                                             required: {
                                                 value: true,
-                                                message: "Please enter"
+                                                message: "Please enter a username/email"
                                             },
                                             minLength: {
                                                 value: 3,
-                                                message: "Please enter"
+                                                message: "the username/email is not valid"
                                             },
                                             maxLength: {
-                                                value: 15,
-                                                message: "Please enter"
+                                                value: 50,
+                                                message: "the username/email is too long"
                                             },
 
                                         })}
